@@ -1,12 +1,32 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState } from 'react';
+import Home from './Home';
+import Activity from './Activity';
+import Profile from './Profile';
+import NavigationBar from '../components/NavigationBar';
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState('home');
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'home':
+        return <Home />;
+      case 'activity':
+        return <Activity />;
+      case 'profile':
+        return <Profile />;
+      default:
+        return <Home />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="flex-1 overflow-hidden">
+        {renderContent()}
       </div>
+      <NavigationBar activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   );
 };
